@@ -5,15 +5,15 @@ import UDP 1.0
 Window{
     id: root
     visible: true
-    width: 300
-    height: 200
+    width: 640
+    height: 480
     title: qsTr("UDP sender")
     Timer{
-        interval: 50
+        interval: 2000
         repeat: true
         running: true
         onTriggered: {
-            Sender.send();
+            Sender.send()
         }
     }
 }
