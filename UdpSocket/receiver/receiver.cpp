@@ -14,11 +14,10 @@ Receiver::~Receiver(){
 }
 
 void Receiver::readDatagrams(){
-    qDebug() << "Receiving!!!";
     while(receiver->hasPendingDatagrams()){
         QByteArray datagram;
         datagram.resize(receiver->pendingDatagramSize());
         receiver->readDatagram(datagram.data(), datagram.size());
-        qDebug() << "Receiving!!!";
+        qDebug() << "Receiving: " << datagram.data();
     }
 }
