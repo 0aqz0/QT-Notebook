@@ -4,7 +4,7 @@
 Receiver::Receiver(QObject* parent) : QObject(parent)
 {
     receiver = new QUdpSocket();
-    receiver->bind(QHostAddress::LocalHost, 6665);
+    receiver->bind(QHostAddress::LocalHost, 6666);
     connect(receiver, SIGNAL(readyRead()), this, SLOT(readDatagrams()));
     qDebug() << "I'm Receiver";
 }

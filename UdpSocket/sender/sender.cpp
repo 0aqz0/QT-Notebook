@@ -15,7 +15,7 @@ void Sender::send(){
     QByteArray datagram = "hello, I'm sender!";
 
     // broadcast
-    sender->writeDatagram(datagram.data(), datagram.size(), QHostAddress::LocalHost, 6665);
+    sender->writeDatagram(datagram.data(), datagram.size(), QHostAddress::LocalHost, 6666);
 
     // sender to specific IP
 //    QHostAddress address = QHostAddress("10.12.11.66");
