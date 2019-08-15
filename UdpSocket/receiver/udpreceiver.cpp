@@ -1,23 +1,23 @@
-#include "receiver.h"
-#include <QDebug>
+#include "udpreceiver.h"
 
-Receiver::Receiver(QObject* parent) : QObject(parent)
+UDPReceiver::UDPReceiver(QObject* parent) : QObject(parent)
 {
     receiver = new QUdpSocket();
     receiver->bind(QHostAddress::LocalHost, 6666);
     connect(receiver, SIGNAL(readyRead()), this, SLOT(readDatagrams()));
-    qDebug() << "I'm Receiver";
 }
 
-Receiver::~Receiver(){
-    delete receiver;
+UDPReceiver::~UDPReceiver(){
+    receiver->abort();
 }
 
-void Receiver::readDatagrams(){
+void UDPReceiver::readDatagrams(){
     while(receiver->hasPendingDatagrams()){
         QByteArray datagram;
         datagram.resize(receiver->pendingDatagramSize());
         receiver->readDatagram(datagram.data(), datagram.size());
+        m_data = QString::fromStdString(datagram.toStdString());
+        emit dataChanged();
         qDebug() << "Receiving: " << datagram.data();
     }
 }

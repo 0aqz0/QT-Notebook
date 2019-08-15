@@ -26,8 +26,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    sender.h
+    udpsender.h
 
 SOURCES += main.cpp \
-    sender.cpp
+    udpsender.cpp
 
