@@ -11,15 +11,13 @@ namespace {
 ThreadReceiver::ThreadReceiver(){
     receiveSocket = new QUdpSocket();
     receiveSocket->bind(QHostAddress::AnyIPv4, PORT, QUdpSocket::ShareAddress);
-
     _thread = new std::thread([ = ] {readDatagrams();});
 }
 
 
 ThreadReceiver::~ThreadReceiver(){
     receiveSocket->abort();
-    if(_thread)
-        delete _thread;
+    delete _thread;
 }
 
 ThreadReceiver* ThreadReceiver::instance(){
@@ -28,10 +26,9 @@ ThreadReceiver* ThreadReceiver::instance(){
     return _instance;
 }
 
-bool ThreadReceiver::readDatagrams(){
+void ThreadReceiver::readDatagrams(){
     while(true){
         std::this_thread::sleep_for(std::chrono::milliseconds(2));
-//        qDebug() << "I'm in the thread.";
         while(receiveSocket->state() == QUdpSocket::BoundState && receiveSocket->hasPendingDatagrams()){
             QByteArray datagram;
             datagram.resize(receiveSocket->pendingDatagramSize());
@@ -39,6 +36,4 @@ bool ThreadReceiver::readDatagrams(){
             qDebug() << "Receiving: " << datagram.data();
         }
     }
-
-    return true;
 }
